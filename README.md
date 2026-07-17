@@ -58,22 +58,11 @@ As a 7th semester CST student, I needed a practical project that would demonstra
 
 ## 📝 My Information
 
-**Name:** [Your Full Name]  
+**Name:** RAJON DEB NATH  
 **Institution:** Madan Mohan College  
 **Program:** Diploma in Computer Science & Technology  
 **Semester:** 7th  
 **Course:** Project Work-II  
 **Year:** 2026
-
-## 🔗 Links
-
-- **Live Demo:** [Add GitHub Pages link after deployment]
-- **Repository:** [Add GitHub repository link]
-
-## 📸 Screenshots
-
-*(Add your screenshots here)*
-
----
 
 © 2026 | Made with ❤️ and Vibe Coding
