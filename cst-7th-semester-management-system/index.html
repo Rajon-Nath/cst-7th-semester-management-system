@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMC DIPLOMA IN CST</title>
+    <style>
+        /* ===== ANIMATION STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a237e 0%, #0d1442 50%, #1a237e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease 3s forwards;
+        }
+
+        .splash-content {
+            text-align: center;
+            animation: scaleIn 1.5s ease forwards;
+        }
+
+        .splash-logo {
+            font-size: 72px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+            letter-spacing: 4px;
+            animation: glowPulse 2s ease infinite alternate;
+        }
+
+        .splash-subtitle {
+            font-size: 28px;
+            color: #64b5f6;
+            font-weight: 600;
+            margin-top: 12px;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: slideUp 0.8s ease 0.5s forwards;
+        }
+
+        .splash-divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #64b5f6, transparent);
+            margin: 20px auto;
+            border-radius: 2px;
+            opacity: 0;
+            animation: slideUp 0.8s ease 0.7s forwards;
+        }
+
+        .splash-vibe {
+            font-size: 18px;
+            color: #90caf9;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: slideUp 0.8s ease 1s forwards;
+        }
+
+        .splash-vibe span {
+            color: #ffd54f;
+            font-weight: 700;
+        }
+
+        .splash-loader {
+            width: 60px;
+            height: 60px;
+            margin: 30px auto 0;
+            position: relative;
+            opacity: 0;
+            animation: slideUp 0.8s ease 1.2s forwards;
+        }
+
+        .splash-loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #64b5f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .splash-loader::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+
+        /* ===== KEYFRAMES ===== */
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                text-shadow: 0 0 20px rgba(100, 181, 246, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 40px rgba(100, 181, 246, 0.6), 0 0 80px rgba(100, 181, 246, 0.2);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .splash-logo {
+                font-size: 42px;
+                letter-spacing: 2px;
+            }
+            .splash-subtitle {
+                font-size: 20px;
+            }
+            .splash-divider {
+                width: 150px;
+            }
+            .splash-vibe {
+                font-size: 14px;
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-logo {
+                font-size: 28px;
+                letter-spacing: 1px;
+            }
+            .splash-subtitle {
+                font-size: 16px;
+            }
+            .splash-divider {
+                width: 100px;
+            }
+            .splash-vibe {
+                font-size: 12px;
+                letter-spacing: 3px;
+            }
+            .splash-loader {
+                width: 40px;
+                height: 40px;
+            }
+            .splash-loader::after {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo">MMC</div>
+            <div class="splash-subtitle">DIPLOMA IN CST</div>
+            <div class="splash-subtitle" style="font-size:18px; color:#90caf9; margin-top:4px;">COURSE MANAGEMENT</div>
+            <div class="splash-divider"></div>
+            <div class="splash-vibe">Made with <span>Vibe Coding</span></div>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
+
+
+    <script>
+        // ===== SPLASH SCREEN CONTROLLER =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // স্প্ল্যাশ স্ক্রিন ৩ সেকেন্ড পর লুকাবে
+            setTimeout(function() {
+                const splash = document.getElementById('splashScreen');
+                const main = document.getElementById('mainContent');
+                
+                if (splash) {
+                    splash.style.display = 'none';
+                }
+                if (main) {
+                    main.style.display = 'block';
+                }
+            }, 3000); // ৩ সেকেন্ড
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diploma in CST - 7th Semester Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-graduation-cap"></i> CST</h2>
+                <p>7th Semester</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-tab="students">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </li>
+                <li class="nav-item" data-tab="subjects">
+                    <i class="fas fa-book"></i>
+                    <span>Subjects</span>
+                </li>
+                <li class="nav-item" data-tab="schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Schedule</span>
+                </li>
+                <li class="nav-item" data-tab="attendance">
+                    <i class="fas fa-user-check"></i>
+                    <span>Attendance</span>
+                </li>
+                <li class="nav-item" data-tab="marks">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Marks</span>
+                </li>
+                <li class="nav-item" data-tab="assignments">
+                    <i class="fas fa-tasks"></i>
+                    <span>Assignments</span>
+                </li>
+                <li class="nav-item" data-tab="resources">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Resources</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Instructor</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="top-bar-title">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <span>Diploma in Computer Science & Technology</span>
+                </div>
+                <div class="top-bar-actions">
+                    <span class="semester-badge">
+                        <i class="fas fa-calendar-check"></i> 2026
+                    </span>
+                    <button class="btn-notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge-dot">3</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- DASHBOARD -->
+                <div id="tab-dashboard" class="tab-pane active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalStudents">0</h3>
+                                <p>Students</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #e8f5e9; color: #388e3c;">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalSubjects">7</h3>
+                                <p>Subjects</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fff3e0; color: #f57c00;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalPeriods">33</h3>
+                                <p>Periods/Week</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fce4ec; color: #c62828;">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalMarks">950</h3>
+                                <p>Total Marks</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-user-graduate"></i> Top Students</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="top-students-list" id="topStudentsList"></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-calendar-week"></i> Weekly Schedule</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="schedule-mini">
+                                    <div class="day-schedule">
+                                        <span class="day-name">Mon</span>
+                                        <span class="day-periods">6 periods</span>
+                                    </div>
+                                    <div class="day-schedule">
+                                        <span class="day-name">Tue</span>
+                                        <span class="day-periods">7 periods</span>
+                                    </div>
+                                    <div class="day-schedule">
+                                        <span class="day-name">Wed</span>
+                                        <span class="day-periods">6 periods</span>
+                                    </div>
+                                    <div class="day-schedule">
+                                        <span class="day-name">Thu</span>
+                                        <span class="day-periods">7 periods</span>
+                                    </div>
+                                    <div class="day-schedule">
+                                        <span class="day-name">Fri</span>
+                                        <span class="day-periods">5 periods</span>
+                                    </div>
+                                    <div class="day-schedule">
+                                        <span class="day-name">Sat</span>
+                                        <span class="day-periods">2 periods</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tasks"></i> Recent Assignments</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="assignment-list" id="dashboardAssignments"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDENTS -->
+                <div id="tab-students" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-users"></i> Enrolled Students</h2>
+                        <button class="btn-primary" id="addStudentBtn"><i class="fas fa-user-plus"></i> Add Student</button>
+                    </div>
+                    <div class="students-grid" id="studentsGrid"></div>
+                </div>
+
+                <!-- SUBJECTS -->
+                <div id="tab-subjects" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-book"></i> 7th Semester Subjects</h2>
+                        <button class="btn-primary" id="addSubjectBtn"><i class="fas fa-plus"></i> Add Subject</button>
+                    </div>
+                    <div class="subjects-grid" id="subjectsGrid"></div>
+                </div>
+
+                <!-- SCHEDULE -->
+                <div id="tab-schedule" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-calendar-alt"></i> Weekly Schedule</h2>
+                        <button class="btn-primary" id="addScheduleBtn"><i class="fas fa-plus"></i> Add Schedule</button>
+                    </div>
+                    <div class="schedule-table-wrapper">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ATTENDANCE -->
+                <div id="tab-attendance" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-user-check"></i> Attendance Management</h2>
+                        <div class="attendance-controls">
+                            <select id="attendanceSubjectFilter">
+                                <option value="all">All Subjects</option>
+                            </select>
+                            <select id="attendanceStudentFilter">
+                                <option value="all">All Students</option>
+                            </select>
+                            <button class="btn-primary" id="markAttendanceBtn">
+                                <i class="fas fa-check"></i> Mark Today's Attendance
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="attendance-summary" id="attendanceSummary"></div>
+                    
+                    <div class="attendance-table-wrapper">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll</th>
+                                    <th>Subject</th>
+                                    <th>Total</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                    <th>Percentage</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MARKS -->
+                <div id="tab-marks" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-chart-line"></i> Marks</h2>
+                        <button class="btn-primary" id="addMarksBtn"><i class="fas fa-plus"></i> Add Marks</button>
+                    </div>
+                    <div class="marks-summary">
+                        <div class="marks-stats" id="marksStats"></div>
+                    </div>
+                    <div class="marks-table-wrapper">
+                        <table class="marks-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll</th>
+                                    <th>Subject</th>
+                                    <th>Marks</th>
+                                    <th>Out of</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marksBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ASSIGNMENTS -->
+                <div id="tab-assignments" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-tasks"></i> Assignments</h2>
+                        <button class="btn-primary" id="addAssignmentBtn"><i class="fas fa-plus"></i> Add Assignment</button>
+                    </div>
+                    <div class="assignments-list" id="assignmentsList"></div>
+                </div>
+
+                <!-- RESOURCES -->
+                <div id="tab-resources" class="tab-pane">
+                    <div class="tab-header">
+                        <h2><i class="fas fa-folder-open"></i> Resources</h2>
+                        <button class="btn-primary" id="addResourceBtn"><i class="fas fa-plus"></i> Add Resource</button>
+                    </div>
+                    <div class="resources-grid" id="resourcesGrid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New</h2>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <form id="modalForm">
+                <div id="modalBody"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="modalCancelBtn">Cancel</button>
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
